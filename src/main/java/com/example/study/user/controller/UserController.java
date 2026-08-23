@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 @Slf4j
 @Controller
@@ -26,5 +27,10 @@ public class UserController {
         userService.signup(request);
         log.info("signup success!!!!");
         return "redirect:/";
+    }
+
+    @GetMapping("/main")
+    public String main(){
+        return "users/main";
     }
 }

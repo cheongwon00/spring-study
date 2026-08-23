@@ -2,6 +2,8 @@ package com.example.study.auth.controller;
 
 import com.example.study.auth.dto.AuthLoginRequest;
 import com.example.study.auth.service.AuthService;
+import com.example.study.common.CommonException;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,10 +27,20 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String loginForm(@Valid @ModelAttribute AuthLoginRequest request){
+    public String loginForm(@Valid @ModelAttribute AuthLoginRequest request,
+                            HttpSession session){
 
         Long id = authService.login(request);
         log.info("{} login 성공!",id);
-        return "/home";
+
+        session.setAttribute("userId",id.toString());
+        return "redirect:/users/main";
+    }
+
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/";
     }
 }
