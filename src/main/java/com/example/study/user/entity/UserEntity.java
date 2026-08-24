@@ -15,15 +15,15 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 30)
-    private String name;
+    @Column(nullable = false,unique = true, length = 30)
+    private String username;
 
     @Column(nullable=false, length = 30)
     private String password;
 
     @Builder
-    public UserEntity(String name, String password){
-        this.name=name;
+    public UserEntity(String username, String password){
+        this.username=username;
         this.password=password;
     }
 }

@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping
-    public String signupFrom(@Valid @ModelAttribute SignupRequest request){
+    public String signupForm(@Valid @ModelAttribute SignupRequest request){
         userService.signup(request);
         log.info("signup success!!!!");
         return "redirect:/";

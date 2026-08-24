@@ -1,7 +1,6 @@
 package com.example.study.common;
 
-import com.example.study.auth.exception.InvalidPasswordException;
-import com.example.study.auth.exception.UserNotFoundException;
+import com.example.study.auth.exception.LoginFailedException;
 import com.example.study.user.exception.DuplicateUsernameException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,28 +14,17 @@ public class GlobalExceptionHandler {
             DuplicateUsernameException e,
             Model model
     ){
-        model.addAttribute("errorMessage : ",e.getMessage());
+        model.addAttribute("errorMessage",e.getMessage());
 
         return "users/signup";
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public String handleUserNotFoundException(
-            UserNotFoundException e,
+    @ExceptionHandler(LoginFailedException.class)
+    public String handleLoginFailedException(
+            LoginFailedException e,
             Model model
     ){
-        model.addAttribute("errorMessage : ",e.getMessage());
-
+        model.addAttribute("errorMessage","아이디 또는 비밀번호가 올바르지 않습니다.");
         return "users/login";
     }
-    @ExceptionHandler(InvalidPasswordException.class)
-    public String handleInvalidPasswordException(
-            InvalidPasswordException e,
-            Model model
-    ){
-        model.addAttribute("errorMessage : ",e.getMessage());
-
-        return "users/login";
-    }
-
 }

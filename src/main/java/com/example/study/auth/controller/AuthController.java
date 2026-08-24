@@ -2,7 +2,6 @@ package com.example.study.auth.controller;
 
 import com.example.study.auth.dto.AuthLoginRequest;
 import com.example.study.auth.service.AuthService;
-import com.example.study.common.CommonException;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

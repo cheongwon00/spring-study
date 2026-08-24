@@ -15,11 +15,11 @@ public class UserService {
 
     public void signup(SignupRequest request){
 
-        if(userRepository.existsByName(request.username())){
+        if(userRepository.existsByUsername(request.username())){
             throw new DuplicateUsernameException("username 중복!");
         }
         UserEntity userEntity = UserEntity.builder()
-                .name(request.username())
+                .username(request.username())
                 .password(request.password())
                 .build();
         userRepository.save(userEntity);

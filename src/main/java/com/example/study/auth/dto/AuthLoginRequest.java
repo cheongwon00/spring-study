@@ -7,7 +7,7 @@ public record AuthLoginRequest(
 
         @NotBlank
         @Size(min = 2, max = 20)
-        String name,
+        String username,
 
         @NotBlank
         @Size(min = 2, max = 20)
