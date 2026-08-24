@@ -32,7 +32,7 @@ public class AuthController {
         Long id = authService.login(request);
         log.info("{} login 성공!",id);
 
-        session.setAttribute("userId",id.toString());
+        session.setAttribute("userId",id);
         return "redirect:/users/main";
     }
 
