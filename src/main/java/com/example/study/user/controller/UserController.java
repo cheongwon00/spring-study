@@ -2,6 +2,7 @@ package com.example.study.user.controller;
 
 import com.example.study.user.dto.SignupRequest;
 import com.example.study.user.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,5 +33,13 @@ public class UserController {
     @GetMapping("/main")
     public String main(){
         return "users/main";
+    }
+
+    @DeleteMapping("/delete")
+    public String userDelete(HttpSession session){
+        Long userId = (Long)session.getAttribute("userId");
+        userService.userDelete(userId);
+        session.invalidate();
+        return "redirect:/";
     }
 }

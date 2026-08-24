@@ -26,7 +26,10 @@ public class UserService {
     }
 
     public UserEntity getUser(Long id){
-
         return userRepository.findById(id).get();
+    }
+
+    public void userDelete(Long id){
+        userRepository.deleteById(id);
     }
 }
