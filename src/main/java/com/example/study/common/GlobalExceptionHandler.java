@@ -1,6 +1,7 @@
 package com.example.study.common;
 
 import com.example.study.auth.exception.LoginFailedException;
+import com.example.study.post.exception.PostException;
 import com.example.study.post.exception.PostNotFoundException;
 import com.example.study.user.exception.DuplicateUsernameException;
 import org.springframework.ui.Model;
@@ -35,5 +36,16 @@ public class GlobalExceptionHandler {
             Model model){
         model.addAttribute("errorMessage","게시글을 찾을 수 없습니다");
         return "users/main";
+    }
+
+    @ExceptionHandler(PostException.class)
+    public String handlePostException(
+            PostException e,
+            Model model
+    ){
+        model.addAttribute("errorMessage","게시글 오류");
+        Long postId = e.getPostId();
+
+        return "redirect:/users/post/"+postId;
     }
 }

@@ -2,6 +2,8 @@ package com.example.study.post.controller;
 
 import com.example.study.post.dto.PostRequest;
 import com.example.study.post.entity.PostEntity;
+import com.example.study.post.exception.PostNotFoundException;
+import com.example.study.post.repository.PostRepository;
 import com.example.study.post.service.PostService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
 
     private final PostService postService;
+    private final PostRepository postRepository;
 
     @GetMapping
     public String postForm(){
@@ -37,5 +40,24 @@ public class PostController {
         PostEntity post = postService.getPostDetailed(postId);
         model.addAttribute("post",post);
         return "users/detail";
+    }
+
+    @GetMapping("/{postId}/edit")
+    public String postEditForm(@PathVariable Long postId,
+                               HttpSession session,
+                               Model model){
+        PostEntity post= postService.getPostPatchForm(postId,session);
+
+        model.addAttribute("post",post);
+        return "users/postEditForm";
+    }
+
+    @PatchMapping("/{postId}")
+    public String editPost(@PathVariable Long postId,
+                           @ModelAttribute PostRequest request,
+                           HttpSession session){
+
+        postService.postPatch(postId,request,session);
+        return "redirect:/users/post/{postId}";
     }
 }
