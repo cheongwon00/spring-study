@@ -1,0 +1,35 @@
+package com.example.study.post.controller;
+
+import com.example.study.post.dto.PostRequest;
+import com.example.study.post.service.PostService;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/users/post")
+@RequiredArgsConstructor
+public class PostController {
+
+    private final PostService postService;
+
+    @GetMapping
+    public String postForm(){
+        return "users/post";
+    }
+
+
+    @PostMapping
+    public String createPost(@Valid @ModelAttribute PostRequest request,
+                             HttpSession session){
+
+        postService.createPost(request,session);
+
+        return "redirect:/users/main";
+    }
+}

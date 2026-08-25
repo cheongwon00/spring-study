@@ -1,0 +1,32 @@
+package com.example.study.post.service;
+
+import com.example.study.post.dto.PostRequest;
+import com.example.study.post.entity.PostEntity;
+import com.example.study.post.repository.PostRepository;
+import com.example.study.user.entity.UserEntity;
+import com.example.study.user.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class PostService {
+
+    private final PostRepository postRepository;
+    private final UserRepository userRepository;
+
+    public void createPost(PostRequest request, HttpSession session){
+
+        Long userId = (Long) session.getAttribute("userId");
+        UserEntity user = userRepository.findById(userId).get();
+
+        PostEntity entity = PostEntity.builder()
+                .title(request.title())
+                .content(request.content())
+                .user(user)
+                .build();
+
+        postRepository.save(entity);
+    }
+}
