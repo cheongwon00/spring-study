@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>메인</title>
@@ -17,6 +17,28 @@
 <form action="/users/post" method="get">
     <button type="submit">게시글 생성</button>
 </form>
+
+<br>
+
+<h2>게시글 목록</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="post : ${posts}">
+        <td th:text="${post.id}">1</td>
+        <td th:text="${post.title}">게시글 제목</td>
+        <td th:text="${post.user.username}">작성자</td>
+    </tr>
+    </tbody>
+</table>
 
 <br>
 
