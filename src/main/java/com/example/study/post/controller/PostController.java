@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
 
     private final PostService postService;
-    private final PostRepository postRepository;
-
     @GetMapping
     public String postForm(){
         return "users/post";
@@ -59,5 +57,11 @@ public class PostController {
 
         postService.postPatch(postId,request,session);
         return "redirect:/users/post/{postId}";
+    }
+    @DeleteMapping("/{postId}")
+    public String deletePost(@PathVariable Long postId,
+                             HttpSession session){
+        postService.deletePost(postId,session);
+        return "redirect:/users/main";
     }
 }

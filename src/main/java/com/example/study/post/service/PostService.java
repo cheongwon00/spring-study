@@ -67,6 +67,15 @@ public class PostService {
             throw new PostException("게시글 작성자가 아닙니다",postId);
         }
         post.update(request.title(), request.content());
+    }
 
+    @Transactional
+    public void deletePost(Long postId, HttpSession session){
+        PostEntity post = postRepository.findById(postId).orElseThrow(()->new PostNotFoundException("게시글을 찾을 수 없습니다."));
+        Long userId = (Long) session.getAttribute("userId");
+        if(!userId.equals(post.getUser().getId())){
+            throw new PostException("게시글 작성자가 아닙니다",postId);
+        }
+        postRepository.deleteById(postId);
     }
 }
