@@ -2,6 +2,7 @@ package com.example.study.post.service;
 
 import com.example.study.post.dto.PostRequest;
 import com.example.study.post.entity.PostEntity;
+import com.example.study.post.exception.PostNotFoundException;
 import com.example.study.post.repository.PostRepository;
 import com.example.study.user.entity.UserEntity;
 import com.example.study.user.repository.UserRepository;
@@ -35,5 +36,12 @@ public class PostService {
 
     public List<PostEntity> getPost(){
         return postRepository.findAllByOrderByIdDesc();
+    }
+
+    public PostEntity getPostDetailed(Long id){
+        PostEntity post = postRepository.findById(id)
+                .orElseThrow(()->new PostNotFoundException("게시물을 찾을 수 없습니다."));
+
+        return post;
     }
 }

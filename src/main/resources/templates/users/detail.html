@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 상세조회</title>
+</head>
+<body>
+
+<h1>게시글 상세조회</h1>
+
+<div>
+    <p>
+        <strong>번호:</strong>
+        <span th:text="${post.id}">1</span>
+    </p>
+
+    <p>
+        <strong>제목:</strong>
+        <span th:text="${post.title}">게시글 제목</span>
+    </p>
+
+    <p>
+        <strong>작성자:</strong>
+        <span th:text="${post.user.username}">작성자</span>
+    </p>
+</div>
+
+<hr>
+
+<div>
+    <h3>내용</h3>
+
+    <p th:text="${post.content}">
+        게시글 내용입니다.
+    </p>
+</div>
+
+<hr>
+
+<a href="/users/main">목록으로</a>
+
+<br><br>
+
+<button type="button">수정</button>
+
+<br><br>
+
+<form method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit">삭제</button>
+</form>
+
+</body>
+</html>

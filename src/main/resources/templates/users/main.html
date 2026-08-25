@@ -34,7 +34,14 @@
     <tbody>
     <tr th:each="post : ${posts}">
         <td th:text="${post.id}">1</td>
-        <td th:text="${post.title}">게시글 제목</td>
+
+        <td>
+            <a th:href="@{/users/post/{postId}(postId=${post.id})}"
+               th:text="${post.title}">
+                게시글 제목
+            </a>
+        </td>
+
         <td th:text="${post.user.username}">작성자</td>
     </tr>
     </tbody>

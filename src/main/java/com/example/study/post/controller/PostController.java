@@ -1,11 +1,13 @@
 package com.example.study.post.controller;
 
 import com.example.study.post.dto.PostRequest;
+import com.example.study.post.entity.PostEntity;
 import com.example.study.post.service.PostService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -30,4 +32,10 @@ public class PostController {
         return "redirect:/users/main";
     }
 
+    @GetMapping("/{postId}")
+    public String detailGetPost(@PathVariable Long postId, Model model){
+        PostEntity post = postService.getPostDetailed(postId);
+        model.addAttribute("post",post);
+        return "users/detail";
+    }
 }
